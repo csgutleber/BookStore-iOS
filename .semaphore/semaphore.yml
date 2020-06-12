@@ -1,0 +1,57 @@
+version: v1.0
+name: Initial Pipeline
+agent:
+  machine:
+    type: e1-standard-2
+    os_image: ubuntu1804
+blocks:
+  - name: 'Block #1'
+    task:
+      jobs:
+        - name: 'Job #1'
+          commands:
+            - checkout
+    dependencies: []
+  - name: 'Block #2'
+    dependencies:
+      - 'Block #1'
+    task:
+      jobs:
+        - name: 'Job #1'
+          commands: []
+        - name: 'Job #2'
+          commands: []
+        - name: 'Job #3'
+          commands: []
+  - name: 'Block #3'
+    dependencies:
+      - 'Block #1'
+    task:
+      jobs:
+        - name: 'Job #1'
+          commands: []
+  - name: 'Block #4'
+    dependencies:
+      - 'Block #2'
+      - 'Block #3'
+    task:
+      jobs:
+        - name: 'Job #1'
+          commands: []
+        - name: 'Job #2'
+          commands: []
+        - name: 'Job #3'
+          commands: []
+        - name: 'Job #4'
+          commands: []
+  - name: 'Block #5'
+    dependencies: []
+    task:
+      jobs:
+        - name: 'Job #1'
+          commands: []
+promotions:
+  - name: Promotion 1
+    pipeline_file: pipeline_2.yml
+    auto_promote:
+      when: branch = 'master' AND result = 'passed'
