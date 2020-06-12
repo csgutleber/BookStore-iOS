@@ -23,6 +23,10 @@ blocks:
           commands: []
         - name: 'Job #3'
           commands: []
+      agent:
+        machine:
+          type: e1-standard-2
+          os_image: ubuntu1804
   - name: 'Block #3'
     dependencies:
       - 'Block #1'
@@ -53,5 +57,5 @@ blocks:
 promotions:
   - name: Promotion 1
     pipeline_file: pipeline_2.yml
-    auto_promote:
-      when: branch = 'master' AND result = 'passed'
+  - name: Promotion 2
+    pipeline_file: pipeline_3.yml
